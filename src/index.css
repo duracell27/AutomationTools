@@ -1,13 +1,141 @@
+html {
+  min-height: 100vh;
+}
+* {
+  box-sizing: border-box;
+}
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+}
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+p{
+  margin: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.carouselWrapper {
+  margin: 20px;
+  border: 1px solid #000;
+}
+.carousel .thumbs-wrapper {
+  margin: 0 !important;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 50px; */
+}
+
+.nav_item {
+  width: 50%;
+  padding: 10px 30px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+}
+.nav_item:hover {
+  background-color: rgba(f, f, f, 0.5);
+}
+
+.mercedes {
+  background-color: #f8d800;
+  padding: 15px;
+  min-height: calc(100vh - 39px);
+}
+.yellow {
+  background-color: #f8d800;
+  text-align: right;
+}
+.blue {
+  background-color: #0396ff;
+}
+.bmw {
+  background-color: #0396ff;
+  min-height: calc(100vh - 39px);
+}
+
+.search_input_wrapper {
+  padding: 10px 15px;
+  background-color: #fdeb71;
+  border-radius: 20px;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.search_input_wrapper input {
+  border-radius: 20px;
+  height: 35px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  flex: 1;
+}
+.search_input_wrapper button{
+  background-color: #f8d800;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  padding: 0px 20px;
+  cursor: pointer;
+}
+
+.main_info{
+  display: flex;
+}
+.main_info_leftside{
+  width: 50%;
+}
+.main_info_rightside{
+  width: 50%;
+}
+.main_info_item, .carouselWrapper{
+  border-radius: 20px;
+  background: #fdeb71;
+  padding: 10px;
+  margin: 5px;
+}
+.carouselWrapper{
+max-height: 460px;
+}
+.carouselIMG{
+max-height: 440px;
+}
+.carouselIMG img{
+  object-fit: contain;
+}
+.main_info_item p {
+  margin-bottom: 5px;
+}
+
+.main_info_item_value{
+  display: flex;
+  gap: 20px;
+  margin-bottom: 7px;
+}
+.flex-col{
+  flex-direction: column;
+  gap: 10px;
+}
+.main_info_item_value span{
+
+  
+}
+.main_info_item_value button{
+  border: none;
+  padding: 0 10px;
+  border-radius: 20px;
+  background-color: #f8d800;
+  cursor: pointer;
 }
