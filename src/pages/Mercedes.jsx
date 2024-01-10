@@ -26,6 +26,10 @@ const Mercedes = () => {
   // }, []);
 
   const handleGetInfo = () => {
+    if(input.includes('bmw')){
+      alert('можливо ви ввели ссилку від BMW')
+      return
+    }
     axios
       .get(input)
       .then((res) => {
@@ -155,21 +159,21 @@ const Mercedes = () => {
     return variations.join(", ");
   }
   return (
-    <div className="mercedes">
-      <div className="search_input_wrapper">
+    <div className="mercedes yellow">
+      <div className="search_input_wrapper light-yellow">
         <input
           type="text"
           value={input}
           placeholder="Вставте посилання з сайту"
           onChange={(e) => setInput(e.target.value)}
         />
-        <button onClick={handleGetInfo}>Отримати дані</button>
-        <button onClick={()=>setInput('')}>Очистити</button>
+        <button className="yellow" onClick={handleGetInfo}>Отримати дані</button>
+        <button className="yellow" onClick={()=>setInput('')}>Очистити</button>
       </div>
 
       <div className="main_info">
         <div className="main_info_leftside">
-          <div className="main_info_item">
+          <div className="main_info_item light-yellow">
             <p>
               <strong>Part number:</strong>
             </p>
@@ -179,7 +183,7 @@ const Mercedes = () => {
               ) : (
                 <span>Не вказано</span>
               )}
-              <button
+              <button className="yellow"
                 onClick={() => {
                   navigator.clipboard.writeText(partNumber);
                   toast.success("Part number copied");
@@ -191,7 +195,7 @@ const Mercedes = () => {
             {partNumber?.length > 0 ? (
               <div className="main_info_item_value">
                 <span>{`A${partNumber.replace(/-/g, "")}`}</span>{" "}
-                <button
+                <button className="yellow"
                   onClick={() => {
                     navigator.clipboard.writeText(
                       `A${partNumber.replace(/-/g, "")}`
@@ -204,7 +208,7 @@ const Mercedes = () => {
               </div>
             ) : null}
           </div>
-          <div className="main_info_item">
+          <div className="main_info_item light-yellow">
             <p>
               <strong>Name:</strong>
             </p>
@@ -214,7 +218,7 @@ const Mercedes = () => {
               ) : (
                 <span>Не вказано</span>
               )}
-              <button
+              <button className="yellow"
                 onClick={() => {
                   navigator.clipboard.writeText(title);
                   toast.success("Name copied");
@@ -224,7 +228,7 @@ const Mercedes = () => {
               </button>
             </div>
           </div>
-          <div className="main_info_item">
+          <div className="main_info_item light-yellow">
             <p>
               <strong>Description:</strong>
             </p>
@@ -234,7 +238,7 @@ const Mercedes = () => {
               ) : (
                 <span>Не вказано</span>
               )}
-              <button
+              <button className="yellow"
                 onClick={() => {
                   navigator.clipboard.writeText(description);
                   toast.success("Description copied");
@@ -244,7 +248,7 @@ const Mercedes = () => {
               </button>
             </div>
           </div>
-          <div className="main_info_item">
+          <div className="main_info_item light-yellow">
             <p>
               <strong>Position:</strong>
             </p>
@@ -255,7 +259,7 @@ const Mercedes = () => {
                 <span>Не вказано</span>
               )}
 
-              <button
+              <button className="yellow"
                 onClick={() => {
                   navigator.clipboard.writeText(description);
                   toast.success("Position copied");
@@ -267,7 +271,7 @@ const Mercedes = () => {
           </div>
         </div>
         <div className="main_info_rightside">
-          <div className="carouselWrapper">
+          <div className="carouselWrapper light-yellow">
             {images.length > 0 ? (
               <Carousel interval={null}>
                 {images.map((image, index) => (
@@ -279,19 +283,12 @@ const Mercedes = () => {
                 ))}
               </Carousel>
             ) : (
-              // <Carousel dynamicHeight>
-              //   {images.map((image, index) => (
-              //     <div key={index}>
-              //       <img src={image} />
-              //     </div>
-              //   ))}
-              // </Carousel>
               "Тут будуть картинки"
             )}
           </div>
         </div>
       </div>
-      <div className="main_info_item">
+      <div className="main_info_item light-yellow">
         <p>
           <strong>Replaces:</strong>
         </p>
@@ -301,7 +298,7 @@ const Mercedes = () => {
           ) : (
             <span>Не вказано</span>
           )}
-          <button
+          <button className="yellow"
             onClick={() => {
               navigator.clipboard.writeText(replacesVariants);
               toast.success("Replaces copied");
@@ -312,7 +309,7 @@ const Mercedes = () => {
         </div>
       </div>
       <div className="tableData">
-        <div className="main_info_item">
+        <div className="main_info_item light-yellow">
           <p>
             <strong>Compatibility</strong>
           </p>

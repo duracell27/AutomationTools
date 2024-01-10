@@ -7,7 +7,7 @@ const Header = () => {
       <NavLink 
         to="/mercedes"
         className={({ isActive, isPending }) =>
-          isPending ? "pending" : isActive ? "active nav_item yellow" : "nav_item yellow"
+          isPending ? "pending" : isActive ? "active nav_item yellow text-right" : "nav_item yellow text-right"
         }
       >
         Mercedes

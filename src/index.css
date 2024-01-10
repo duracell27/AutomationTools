@@ -49,17 +49,24 @@ p{
   background-color: rgba(f, f, f, 0.5);
 }
 
-.mercedes {
-  background-color: #f8d800;
+.mercedes, .bmw {
   padding: 15px;
   min-height: calc(100vh - 39px);
 }
+.text-right{
+  text-align: right;
+}
 .yellow {
   background-color: #f8d800;
-  text-align: right;
+}
+.light-yellow {
+  background-color: #fdeb71;
 }
 .blue {
   background-color: #0396ff;
+}
+.light-blue {
+  background-color: #ABDCFF;
 }
 .bmw {
   background-color: #0396ff;
@@ -68,7 +75,6 @@ p{
 
 .search_input_wrapper {
   padding: 10px 15px;
-  background-color: #fdeb71;
   border-radius: 20px;
   display: flex;
   gap: 10px;
@@ -83,7 +89,6 @@ p{
   flex: 1;
 }
 .search_input_wrapper button{
-  background-color: #f8d800;
   border: none;
   outline: none;
   border-radius: 20px;
@@ -102,7 +107,6 @@ p{
 }
 .main_info_item, .carouselWrapper{
   border-radius: 20px;
-  background: #fdeb71;
   padding: 10px;
   margin: 5px;
 }
@@ -136,6 +140,5 @@ max-height: 440px;
   border: none;
   padding: 0 10px;
   border-radius: 20px;
-  background-color: #f8d800;
   cursor: pointer;
 }
