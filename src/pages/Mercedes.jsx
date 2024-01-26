@@ -1,13 +1,15 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 // import { Carousel } from "react-responsive-carousel";
 import toast from "react-hot-toast";
 import Carousel from "react-bootstrap/Carousel";
+import Loader from "../components/Loader";
 
 const Mercedes = () => {
   const [data, setData] = useState("");
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
 
   let partNumber = "";
   let replaces = "";
@@ -21,23 +23,25 @@ const Mercedes = () => {
   let replacesVariants = "";
   let images = [];
 
-  // useEffect(() => {
-  //   handleGetInfo();
-  // }, []);
-
   const handleGetInfo = () => {
-    if(input.includes('bmw')){
-      alert('можливо ви ввели ссилку від BMW')
-      return
+    if (input.includes("bmw")) {
+      alert("можливо ви ввели ссилку від BMW");
+      return;
     }
+    setLoading(true);
     axios
       .get(input)
       .then((res) => {
         if (res.status === 200) {
           setData(res.data);
         }
+        setLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+        toast.error("Помилка отримання даних, або cors виключений");
+      });
   };
 
   if (data !== "") {
@@ -167,169 +171,184 @@ const Mercedes = () => {
           placeholder="Вставте посилання з сайту"
           onChange={(e) => setInput(e.target.value)}
         />
-        <button className="yellow" onClick={handleGetInfo}>Отримати дані</button>
-        <button className="yellow" onClick={()=>setInput('')}>Очистити</button>
+        <button className="yellow" onClick={handleGetInfo}>
+          Отримати дані
+        </button>
+        <button className="yellow" onClick={() => setInput("")}>
+          Очистити
+        </button>
       </div>
-
-      <div className="main_info">
-        <div className="main_info_leftside">
-          <div className="main_info_item light-yellow">
-            <p>
-              <strong>Part number:</strong>
-            </p>
-            <div className="main_info_item_value">
-              {partNumber?.length > 0 ? (
-                <span>{partNumber}</span>
-              ) : (
-                <span>Не вказано</span>
-              )}
-              <button className="yellow"
-                onClick={() => {
-                  navigator.clipboard.writeText(partNumber);
-                  toast.success("Part number copied");
-                }}
-              >
-                copy
-              </button>
-            </div>
-            {partNumber?.length > 0 ? (
-              <div className="main_info_item_value">
-                <span>{`A${partNumber.replace(/-/g, "")}`}</span>{" "}
-                <button className="yellow"
-                  onClick={() => {
-                    navigator.clipboard.writeText(
-                      `A${partNumber.replace(/-/g, "")}`
-                    );
-                    toast.success("Part A number copied");
-                  }}
-                >
-                  copy
-                </button>
-              </div>
-            ) : null}
-          </div>
-          <div className="main_info_item light-yellow">
-            <p>
-              <strong>Name:</strong>
-            </p>
-            <div className="main_info_item_value">
-              {title?.length > 0 ? (
-                <span>{title}</span>
-              ) : (
-                <span>Не вказано</span>
-              )}
-              <button className="yellow"
-                onClick={() => {
-                  navigator.clipboard.writeText(title);
-                  toast.success("Name copied");
-                }}
-              >
-                copy
-              </button>
-            </div>
-          </div>
-          <div className="main_info_item light-yellow">
-            <p>
-              <strong>Description:</strong>
-            </p>
-            <div className="main_info_item_value">
-              {description?.length > 0 ? (
-                <span>{description}</span>
-              ) : (
-                <span>Не вказано</span>
-              )}
-              <button className="yellow"
-                onClick={() => {
-                  navigator.clipboard.writeText(description);
-                  toast.success("Description copied");
-                }}
-              >
-                copy
-              </button>
-            </div>
-          </div>
-          <div className="main_info_item light-yellow">
-            <p>
-              <strong>Position:</strong>
-            </p>
-            <div className="main_info_item_value">
-              {position?.length > 0 ? (
-                <span>{position}</span>
-              ) : (
-                <span>Не вказано</span>
-              )}
-
-              <button className="yellow"
-                onClick={() => {
-                  navigator.clipboard.writeText(description);
-                  toast.success("Position copied");
-                }}
-              >
-                copy
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="main_info_rightside">
-          <div className="carouselWrapper light-yellow">
-            {images.length > 0 ? (
-              <Carousel interval={null}>
-                {images.map((image, index) => (
-                  <Carousel.Item key={index}>
-                    <div className="carouselIMG">
-                      <img src={image} alt="img" />
-                    </div>
-                  </Carousel.Item>
-                ))}
-              </Carousel>
-            ) : (
-              "Тут будуть картинки"
-            )}
-          </div>
-        </div>
-      </div>
-      <div className="main_info_item light-yellow">
-        <p>
-          <strong>Replaces:</strong>
-        </p>
-        <div className="main_info_item_value">
-          {replacesVariants?.length > 0 ? (
-            <span>{replacesVariants}</span>
-          ) : (
-            <span>Не вказано</span>
-          )}
-          <button className="yellow"
-            onClick={() => {
-              navigator.clipboard.writeText(replacesVariants);
-              toast.success("Replaces copied");
-            }}
-          >
-            copy
-          </button>
-        </div>
-      </div>
-      <div className="tableData">
-        <div className="main_info_item light-yellow">
-          <p>
-            <strong>Compatibility</strong>
-          </p>
-          <div className="main_info_item_value flex-col">
-            {Object.keys(compabilityObj).length > 0 ? (
-              Object.keys(compabilityObj).map((keyName, index) => (
-                <div key={index}>
-                  <span>
-                    <strong>{keyName}</strong>
-                  </span>
-                  {" : "}
-                  <span>{compabilityObj[keyName]}</span>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <div className="main_info">
+            <div className="main_info_leftside">
+              <div className="main_info_item light-yellow">
+                <p>
+                  <strong>Part number:</strong>
+                </p>
+                <div className="main_info_item_value">
+                  {partNumber?.length > 0 ? (
+                    <span>{partNumber}</span>
+                  ) : (
+                    <span>Не вказано</span>
+                  )}
+                  <button
+                    className="yellow"
+                    onClick={() => {
+                      navigator.clipboard.writeText(partNumber);
+                      toast.success("Part number copied");
+                    }}
+                  >
+                    copy
+                  </button>
                 </div>
-              ))
-            ) : (
-              <p>Немає даних</p>
-            )}
+                {partNumber?.length > 0 ? (
+                  <div className="main_info_item_value">
+                    <span>{`A${partNumber.replace(/-/g, "")}`}</span>{" "}
+                    <button
+                      className="yellow"
+                      onClick={() => {
+                        navigator.clipboard.writeText(
+                          `A${partNumber.replace(/-/g, "")}`
+                        );
+                        toast.success("Part A number copied");
+                      }}
+                    >
+                      copy
+                    </button>
+                  </div>
+                ) : null}
+              </div>
+              <div className="main_info_item light-yellow">
+                <p>
+                  <strong>Name:</strong>
+                </p>
+                <div className="main_info_item_value">
+                  {title?.length > 0 ? (
+                    <span>{title}</span>
+                  ) : (
+                    <span>Не вказано</span>
+                  )}
+                  <button
+                    className="yellow"
+                    onClick={() => {
+                      navigator.clipboard.writeText(title);
+                      toast.success("Name copied");
+                    }}
+                  >
+                    copy
+                  </button>
+                </div>
+              </div>
+              <div className="main_info_item light-yellow">
+                <p>
+                  <strong>Description:</strong>
+                </p>
+                <div className="main_info_item_value">
+                  {description?.length > 0 ? (
+                    <span>{description}</span>
+                  ) : (
+                    <span>Не вказано</span>
+                  )}
+                  <button
+                    className="yellow"
+                    onClick={() => {
+                      navigator.clipboard.writeText(description);
+                      toast.success("Description copied");
+                    }}
+                  >
+                    copy
+                  </button>
+                </div>
+              </div>
+              <div className="main_info_item light-yellow">
+                <p>
+                  <strong>Position:</strong>
+                </p>
+                <div className="main_info_item_value">
+                  {position?.length > 0 ? (
+                    <span>{position}</span>
+                  ) : (
+                    <span>Не вказано</span>
+                  )}
+
+                  <button
+                    className="yellow"
+                    onClick={() => {
+                      navigator.clipboard.writeText(description);
+                      toast.success("Position copied");
+                    }}
+                  >
+                    copy
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="main_info_rightside">
+              <div className="carouselWrapper light-yellow">
+                {images.length > 0 ? (
+                  <Carousel interval={null}>
+                    {images.map((image, index) => (
+                      <Carousel.Item key={index}>
+                        <div className="carouselIMG">
+                          <img src={image} alt="img" />
+                        </div>
+                      </Carousel.Item>
+                    ))}
+                  </Carousel>
+                ) : (
+                  "Тут будуть картинки"
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+          <div className="main_info_item light-yellow">
+            <p>
+              <strong>Replaces:</strong>
+            </p>
+            <div className="main_info_item_value">
+              {replacesVariants?.length > 0 ? (
+                <span>{replacesVariants}</span>
+              ) : (
+                <span>Не вказано</span>
+              )}
+              <button
+                className="yellow"
+                onClick={() => {
+                  navigator.clipboard.writeText(replacesVariants);
+                  toast.success("Replaces copied");
+                }}
+              >
+                copy
+              </button>
+            </div>
+          </div>
+          <div className="tableData">
+            <div className="main_info_item light-yellow">
+              <p>
+                <strong>Compatibility</strong>
+              </p>
+              <div className="main_info_item_value flex-col">
+                {Object.keys(compabilityObj).length > 0 ? (
+                  Object.keys(compabilityObj).map((keyName, index) => (
+                    <div key={index}>
+                      <span>
+                        <strong>{keyName}</strong>
+                      </span>
+                      {" : "}
+                      <span>{compabilityObj[keyName]}</span>
+                    </div>
+                  ))
+                ) : (
+                  <p>Немає даних</p>
+                )}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

@@ -29,6 +29,20 @@ p{
 .carousel .thumbs-wrapper {
   margin: 0 !important;
 }
+.home{
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.loader{
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+}
+
+.loader_animation{
+  animation: spin 1s linear infinite;
+}
 
 .header {
   display: flex;
@@ -49,7 +63,7 @@ p{
   background-color: rgba(f, f, f, 0.5);
 }
 
-.mercedes, .bmw {
+.mercedes, .bmw,.home {
   padding: 15px;
   min-height: calc(100vh - 39px);
 }
@@ -141,4 +155,12 @@ max-height: 440px;
   padding: 0 10px;
   border-radius: 20px;
   cursor: pointer;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
